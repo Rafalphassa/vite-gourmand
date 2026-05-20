@@ -165,7 +165,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         <!-- Logo -->
         <a class="navbar-brand" href="/vite-gourmand/">
-            🍽️ Vite & <span>Gourmand</span>
+              Vite & <span>Gourmand</span>
         </a>
 
         <!-- Bouton hamburger sur mobile -->
@@ -204,19 +204,19 @@ if (session_status() === PHP_SESSION_NONE) {
                             <?php if($_SESSION['role_id'] == 1): ?>
                                 <li>
                                     <a class="dropdown-item" href="/vite-gourmand/espace-admin.php">
-                                        ⚙️ Espace Admin
+                                          Espace Admin
                                     </a>
                                 </li>
                             <?php elseif($_SESSION['role_id'] == 2): ?>
                                 <li>
                                     <a class="dropdown-item" href="/vite-gourmand/espace-employe.php">
-                                        👨‍🍳 Espace Employé
+                                          Espace Employé
                                     </a>
                                 </li>
                             <?php else: ?>
                                 <li>
                                     <a class="dropdown-item" href="/vite-gourmand/espace-user.php">
-                                        👤 Mon Espace
+                                          Mon Espace
                                     </a>
                                 </li>
                             <?php endif; ?>
@@ -225,7 +225,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li>
                                 <a class="dropdown-item text-danger" 
                                    href="/vite-gourmand/deconnexion.php">
-                                    🚪 Déconnexion
+                                     Déconnexion
                                 </a>
                             </li>
                         </ul>

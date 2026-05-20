@@ -11,7 +11,7 @@ require_once 'includes/header.php';
 
 <section class="py-5">
     <div class="container">
-        <h2 style="font-family:'Playfair Display',serif; color:#1A5F7A;">Espace Administrateur</h2>
+        <h1 style="font-family:'Playfair Display',serif; color:#1A5F7A;">Espace Administrateur</h1>
         <p>En construction...</p>
     </div>
 </section>
