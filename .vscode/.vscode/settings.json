@@ -1,0 +1,8 @@
+{
+    "php.validate.enable": true,
+    "php.suggest.basic": false,
+    "intelephense.environment.phpVersion": "8.1.0",
+    "intelephense.stubs": [
+        "PDO", "filter", "standard", "Core", "session", "date", "pcre"
+    ]
+}

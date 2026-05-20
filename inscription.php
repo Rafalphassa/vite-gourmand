@@ -1,6 +1,6 @@
 <?php
+session_start();
 require_once 'config/database.php';
-
 
 $erreurs = [];
 $succes  = false;
@@ -26,18 +26,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if(empty($erreurs)) {
-        $stmt = $pdo->prepare("SELECT utilisateur_id FROM utilisateur WHERE email = ?");
+        $stmt = getDB()->prepare("SELECT utilisateur_id FROM utilisateur WHERE email = ?");
         $stmt->execute([$email]);
         if($stmt->fetch()) $erreurs[] = "Cet email est déjà utilisé.";
     }
 
     if(empty($erreurs)) {
         $hash = password_hash($mdp, PASSWORD_BCRYPT);
-        $stmt = $pdo->prepare("
+        $stmt = getDB()->prepare("
             INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, telephone, adresse, ville, code_postal, role_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 3)
         ");
         $stmt->execute([$nom, $prenom, $email, $hash, $tel, $adresse, $ville, $cp]);
+
+        // Mail de bienvenue (simulé pour l'ECF)
+        $sujet  = "Bienvenue chez Vite & Gourmand !";
+        $corps  = "Bonjour $prenom,\n\nVotre compte a été créé avec succès.\nBienvenue chez Vite & Gourmand !\n\nL'équipe";
+        $entete = "From: ne-pas-repondre@vitegourmand.fr";
+        @mail($email, $sujet, $corps, $entete);
+
         $succes = true;
     }
 }
@@ -60,7 +67,7 @@ require_once 'includes/header.php';
 
                     <?php if($succes): ?>
                         <div style="background:#d4edda; color:#155724; border-radius:10px; padding:20px;">
-                            Compte créé avec succès !
+                            Compte créé avec succès ! Un email de bienvenue vous a été envoyé.<br>
                             <a href="/vite-gourmand/connexion.php" style="color:#1A5F7A; font-weight:600;">
                                 Se connecter
                             </a>
@@ -93,7 +100,7 @@ require_once 'includes/header.php';
                                            value="<?php echo htmlspecialchars($email); ?>" required>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label small fw-bold">Téléphone</label>
+                                    <label class="form-label small fw-bold">Téléphone (GSM)</label>
                                     <input type="tel" name="telephone" class="form-control"
                                            value="<?php echo htmlspecialchars($tel); ?>">
                                 </div>
@@ -129,9 +136,7 @@ require_once 'includes/header.php';
                                         border-radius:25px; padding:12px 35px;
                                         font-weight:600; width:100%; font-size:1rem;
                                         cursor:pointer;
-                                    ">
-                                        Créer mon compte
-                                    </button>
+                                    ">Créer mon compte</button>
                                 </div>
                                 <div class="col-12 text-center">
                                     <p style="color:#999; font-size:0.9rem; margin:0;">

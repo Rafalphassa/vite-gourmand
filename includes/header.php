@@ -10,42 +10,35 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite & Gourmand — Traiteur à Bordeaux</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts : Playfair Display pour les titres (élégant), Inter pour le texte (lisible) -->
+   
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* =====================
-           PALETTE DE COULEURS
-        ===================== */
+        
         :root {
-            --bleu-turquoise : #1A5F7A;   /* couleur principale */
-            --or-chaud       : #D4A853;   /* couleur secondaire */
-            --creme          : #F0EDE4;   /* fond de page */
-            --texte          : #1C1C1C;   /* texte principal */
+            --bleu-turquoise : #1A5F7A;
+            --or-chaud       : #D4A853;
+            --creme          : #F0EDE4;
+            --texte          : #1C1C1C;
             --blanc          : #FFFFFF;
         }
 
-        /* =====================
-           BASE
-        ===================== */
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--creme);
             color: var(--texte);
         }
 
-        /* Les titres h1, h2, h3 utilisent la police élégante */
+       
         h1, h2, h3, .titre-elegant {
             font-family: 'Playfair Display', serif;
         }
 
-        /* =====================
-           NAVBAR
-        ===================== */
+        
         .navbar {
             background-color: var(--bleu-turquoise);
             padding: 15px 0;
-            /* sticky : la navbar reste visible quand on scroll */
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -76,7 +69,7 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--or-chaud) !important;
         }
 
-        /* Bouton connexion dans la navbar */
+        
         .btn-navbar-connexion {
             background-color: transparent;
             border: 1.5px solid var(--or-chaud);
@@ -91,7 +84,7 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--blanc) !important;
         }
 
-        /* Bouton inscription dans la navbar */
+        
         .btn-navbar-inscription {
             background-color: var(--or-chaud);
             border: 1.5px solid var(--or-chaud);
@@ -107,7 +100,7 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--or-chaud) !important;
         }
 
-        /* Dropdown menu (le menu déroulant du compte) */
+        
         .dropdown-menu {
             border: none;
             box-shadow: 0 5px 25px rgba(0,0,0,0.12);
@@ -119,9 +112,7 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--bleu-turquoise);
         }
 
-        /* =====================
-           BOUTONS GLOBAUX
-        ===================== */
+        
         .btn-principal {
             background-color: var(--bleu-turquoise);
             color: var(--blanc);
@@ -157,18 +148,15 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
 
-<!-- =====================
-     BARRE DE NAVIGATION
-===================== -->
+
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-
-        <!-- Logo -->
-        <a class="navbar-brand" href="/vite-gourmand/">
-              Vite & <span>Gourmand</span>
+        
+    <a class="navbar-brand" href="/vite-gourmand/">
+            Vite &amp; <span>Gourmand</span>
         </a>
 
-        <!-- Bouton hamburger sur mobile -->
+        
         <button class="navbar-toggler border-0" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#menuNav"
@@ -176,7 +164,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Liens du menu -->
+        
         <div class="collapse navbar-collapse" id="menuNav">
             <ul class="navbar-nav ms-auto align-items-center">
 
@@ -193,59 +181,59 @@ if (session_status() === PHP_SESSION_NONE) {
                 </li>
 
                 <?php if(isset($_SESSION['utilisateur_id'])): ?>
-                    <!-- Utilisateur connecté -->
+                   
                     <li class="nav-item dropdown ms-2">
-                        <a class="nav-link dropdown-toggle btn-navbar-connexion" 
+                        <a class="nav-link dropdown-toggle btn-navbar-connexion"
                            href="#" data-bs-toggle="dropdown">
-                            👤 <?php echo htmlspecialchars($_SESSION['prenom']); ?>
+                            <?php echo htmlspecialchars($_SESSION['prenom']); ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
 
                             <?php if($_SESSION['role_id'] == 1): ?>
                                 <li>
                                     <a class="dropdown-item" href="/vite-gourmand/espace-admin.php">
-                                          Espace Admin
+                                        Espace Admin
                                     </a>
                                 </li>
                             <?php elseif($_SESSION['role_id'] == 2): ?>
                                 <li>
                                     <a class="dropdown-item" href="/vite-gourmand/espace-employe.php">
-                                          Espace Employé
+                                        Espace Employe
                                     </a>
                                 </li>
                             <?php else: ?>
                                 <li>
                                     <a class="dropdown-item" href="/vite-gourmand/espace-user.php">
-                                          Mon Espace
+                                        Mon Espace
                                     </a>
                                 </li>
                             <?php endif; ?>
 
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item text-danger" 
+                                <a class="dropdown-item text-danger"
                                    href="/vite-gourmand/deconnexion.php">
-                                     Déconnexion
+                                    Deconnexion
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                <?php else: ?>
-                    <!-- Visiteur non connecté -->
+                
+            <?php else: ?>
                     <li class="nav-item ms-2">
-                        <a class="nav-link btn-navbar-connexion" 
+                        <a class="nav-link btn-navbar-connexion"
                            href="/vite-gourmand/connexion.php">
                             Connexion
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-navbar-inscription" 
+                        <a class="nav-link btn-navbar-inscription"
                            href="/vite-gourmand/inscription.php">
                             Inscription
                         </a>
                     </li>
-                <?php endif; ?>
+            <?php endif; ?>
 
             </ul>
         </div>

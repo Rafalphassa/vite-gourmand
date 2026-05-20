@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config/database.php';
 
 $erreur = '';
@@ -10,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(empty($email) || empty($mdp)) {
         $erreur = "Veuillez remplir tous les champs.";
     } else {
-        $stmt = $pdo->prepare("
+        $stmt = getDB()->prepare("
             SELECT u.*, r.libelle as role_libelle 
             FROM utilisateur u
             JOIN role r ON u.role_id = r.role_id
@@ -20,6 +21,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch();
 
         if($user && password_verify($mdp, $user['mot_de_passe'])) {
+            session_regenerate_id(true); // sécurité anti-fixation de session
             $_SESSION['utilisateur_id'] = $user['utilisateur_id'];
             $_SESSION['nom']            = $user['nom'];
             $_SESSION['prenom']         = $user['prenom'];
